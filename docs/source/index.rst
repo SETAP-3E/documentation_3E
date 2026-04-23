@@ -22,5 +22,10 @@ Contents
 
 .. toctree::
 
+   installation
+   quickstart
+   local-development
+   architecture
+   configuration
    usage
    api
