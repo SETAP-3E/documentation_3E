@@ -1,13 +1,17 @@
-Welcome to Lumache's documentation!
-===================================
+Budgetting App Documentation
+============================
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
+A full-stack budgeting application built with Flutter (frontend), Dart Frog (backend), and PostgreSQL (database).
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+Tech Stack
+----------
+
+| Layer    | Technology                              |
+|----------|-----------------------------------------|
+| Frontend | Flutter (web)                           |
+| Backend  | Dart Frog REST API                      |
+| Database | PostgreSQL 16                           |
+| Infra    | Docker + Docker Compose                 |
 
 .. note::
 
