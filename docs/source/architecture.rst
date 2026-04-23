@@ -6,21 +6,21 @@ Project Structure
 
 The repository is organized into frontend, backend, and infrastructure components.
 
-```
-Budgetting-App/
-├── frontend/           # Flutter web application
-│   ├── lib/
-│   │   ├── core/       # Theme, router, utilities
-│   │   └── features/   # Feature modules (dashboard, auth, etc.)
-│   └── Dockerfile
-├── backend/            # Dart Frog REST API
-│   ├── routes/         # API route handlers
-│   ├── lib/            # Models, services, repositories
-│   └── Dockerfile
-├── docker-compose.yml
-├── docker-compose.override.yml  # Local dev overrides
-└── .env.example
-```
+.. code-block:: text
+
+   Budgetting-App/
+   ├── frontend/           # Flutter web application
+   │   ├── lib/
+   │   │   ├── core/       # Theme, router, utilities
+   │   │   └── features/   # Feature modules (dashboard, auth, etc.)
+   │   └── Dockerfile
+   ├── backend/            # Dart Frog REST API
+   │   ├── routes/         # API route handlers
+   │   ├── lib/            # Models, services, repositories
+   │   └── Dockerfile
+   ├── docker-compose.yml
+   ├── docker-compose.override.yml  # Local dev overrides
+   └── .env.example
 
 Architecture Overview
 ---------------------

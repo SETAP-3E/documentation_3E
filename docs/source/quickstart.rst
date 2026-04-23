@@ -14,11 +14,15 @@ Once you've completed the :doc:`installation` steps, start all services with:
 
 This starts three services:
 
++------------+--------------------------+
 | Service    | URL                      |
-|------------|--------------------------|
++============+==========================+
 | Frontend   | http://localhost:80      |
++------------+--------------------------+
 | Backend    | http://localhost:8080    |
++------------+--------------------------+
 | PostgreSQL | localhost:5432           |
++------------+--------------------------+
 
 Running in the Background
 --------------------------
