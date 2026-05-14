@@ -37,7 +37,13 @@ The frontend is built with **Flutter** (targeting Web). It follows a layered app
 
 Backend Architecture (Dart Frog)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [Backend details placeholder]
+The backend is a RESTful API service built using **Dart Frog**. It acts as the secure intermediary between the Flutter frontend, the PostgreSQL database, and external APIs (like Google Places).
+
+* **Framework & Routing**: Uses **dart_frog** for lightweight and fast route handling.
+* **Database Communication**: Connects directly to the PostgreSQL database using the **postgres** driver package. Database operations are abstracted into a Repository layer (e.g., separating SQL queries from route logic).
+* **Authentication & Security**: Implements secure, stateless sessions. User passwords are encrypted using **bcrypt**, and authentication is managed via JSON Web Tokens (**dart_jsonwebtoken**). Custom middleware validates these tokens on protected routes.
+* **Secret Management**: Loads environment configurations (database credentials, JWT secrets, Google API keys) from a `.env` file using the **dotenv** package.
+* **External Integrations**: Uses the **http** package to make server-to-server calls. Specifically, it proxies requests to the Google Places API, ensuring the Google API key is never exposed to the client frontend.
 
 Infrastructure Notes
 --------------------
