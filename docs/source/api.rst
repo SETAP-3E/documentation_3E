@@ -63,3 +63,67 @@ All endpoints in the ``/auth`` path are public and do not require prior authoriz
    **Error Responses:**
    * ``400 Bad Request``: Username or password not provided.
    * ``401 Unauthorized``: Invalid username or password generic error.
+
+Accounts (`/accounts`)
+----------------------
+
+All endpoints in the ``/accounts`` path require a valid Bearer JWT token in the ``Authorization`` header.
+
+.. http:get:: /accounts
+
+   Retrieves a list of all accounts belonging to the authenticated user. Includes dynamically computed spend amounts for the current month and week.
+
+   **Response (200 OK):**
+
+   .. code-block:: json
+
+      [
+        {
+          "id": "uuid-here",
+          "user_id": "user-uuid",
+          "name": "Main Checking",
+          "account_type": "current",
+          "balance": 2500.00,
+          "monthly_budget": 1000.00,
+          "monthly_spent": 350.25,
+          "weekly_spent": 120.00,
+          "accent_color": 4278190080
+        }
+      ]
+
+.. http:post:: /accounts
+
+   Creates a new financial account/budget for the user.
+
+   **Request Body:**
+
+   .. code-block:: json
+
+      {
+        "name": "Holiday Fund",
+        "account_type": "savings",
+        "balance": 500.0,
+        "monthly_budget": 100.0,
+        "accent_color": 4280391411
+      }
+
+   *   ``account_type`` must be one of: ``"current"``, ``"savings"``, or ``"joint"``.
+
+   **Response (201 Created):**
+
+   .. code-block:: json
+
+      {
+         "id": "new-uuid-here",
+         "user_id": "user-uuid",
+         "name": "Holiday Fund",
+         "account_type": "savings",
+         "balance": 500.0,
+         "monthly_budget": 100.0,
+         "monthly_spent": 0.0,
+         "weekly_spent": 0.0,
+         "accent_color": 4280391411
+      }
+
+   **Error Responses:**
+   * ``400 Bad Request``: Missing required fields, invalid account type, or negative balance/monthly budget.
