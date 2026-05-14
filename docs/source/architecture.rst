@@ -45,9 +45,23 @@ The backend is a RESTful API service built using **Dart Frog**. It acts as the s
 * **Secret Management**: Loads environment configurations (database credentials, JWT secrets, Google API keys) from a `.env` file using the **dotenv** package.
 * **External Integrations**: Uses the **http** package to make server-to-server calls. Specifically, it proxies requests to the Google Places API, ensuring the Google API key is never exposed to the client frontend.
 
-Infrastructure Notes
---------------------
+Database & Infrastructure
+~~~~~~~~~~~~~~~~~~~~~~~~~
+The app utilizes **Docker** and **Docker Compose** to orchestrate the entire environment securely and reliably.
 
-- `docker-compose.yml` configures the frontend, backend, and PostgreSQL services.
-- `docker-compose.override.yml` is used for local overrides, such as development-specific settings.
-- `.env.example` contains sample environment variables used by Docker and the app.
+* **PostgreSQL Database**: Data is stored using a structured relational model residing in a `postgres:16-alpine` Docker container. The data is persisted across restarts using Docker volumes (`postgres_data`). Health checks ensure the database is fully initialized before the backend attempts to connect.
+* **Component Containerization**:
+  * The **Backend** container awaits the database and is injected with vital environment variables (database URLs, JWT secrets, and Google API keys).
+  * The **Frontend** container serves the compiled Flutter web artifacts.
+* **Local Overrides**: A `docker-compose.override.yml` facilitates local development tweaks, like mapping the database port to `5433` on the host machine.
+* **Environment Configuration**: All secrets and environment-specific configs are managed via a `.env` file (with `.env.example` acting as the template).
+
+External Integrations: Google Maps & Places
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A core feature of the Budgeting app is location-aware transaction tagging. The architecture ensures both a seamless UI and secure API key management:
+
+* **Frontend Maps UI**: The Flutter app leverages the `google_maps_flutter` package to render an interactive map. Users can select locations or search for specific venues.
+* **Secure Places API Proxy**: To prevent the sensitive `GOOGLE_PLACES_API_KEY` from being exposed in the public web frontend, the system proxies Google Places requests through the backend.
+  1. The Flutter client sends a search request (e.g., query text) to the Dart Frog backend (`/places/autocomplete` or `/places/details`).
+  2. The Dart Frog backend appends the secure API key and forwards the request to the official Google Places API.
+  3. The backend receives Google's response and relays the cleaned location data back to the frontend.
