@@ -223,3 +223,69 @@ All endpoints require a valid Bearer JWT token.
 .. http:delete:: /budgets
    
    Removes a budget goal. Requires ``category_id``, ``year``, and ``month`` query parameters.
+
+Categories (`/categories`)
+--------------------------
+
+All endpoints require a valid Bearer JWT token.
+
+.. http:get:: /categories
+
+   Retrieves all spending categories available to the authenticated user.
+   This returns predefined systemic categories plus any custom categories created by the user, ordered predefined-first then alphabetically.
+
+   **Response (200 OK):**
+
+   .. code-block:: json
+
+      [
+        {
+          "id": "cat-uuid",
+          "name": "Groceries",
+          "icon": "shopping_cart",
+          "colour_value": 4283120984,
+          "is_predefined": true
+        }
+      ]
+
+Places (`/places`)
+------------------
+
+The Places endpoints act as a proxy for the Google Places API to avoid exposing the Google API Key to the frontend and to prevent CORS issues. All calls require a valid Bearer JWT token.
+
+.. http:get:: /places/autocomplete
+
+   Proxies the query to the Google Places Autocomplete API. Returns a trimmed list of predictions scoped to the `GB` region.
+
+   **Query Parameters:**
+   * ``q`` (required): The search input string.
+
+   **Response (200 OK):**
+
+   .. code-block:: json
+
+      {
+        "predictions": [
+          {
+            "place_id": "ChIJ...id",
+            "description": "Tesco Superstore, Fratton Way, Portsmouth, UK"
+          }
+        ]
+      }
+
+.. http:get:: /places/details
+
+   Proxies to the Google Places Details API, fetching only the place's ``name`` and ``geometry`` coordinates to minimize billing costs.
+
+   **Query Parameters:**
+   * ``place_id`` (required): The Google Place ID obtained from the autocomplete endpoint.
+
+   **Response (200 OK):**
+
+   .. code-block:: json
+
+      {
+        "name": "Tesco Superstore",
+        "latitude": 50.7963,
+        "longitude": -1.0664
+      }
