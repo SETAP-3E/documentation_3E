@@ -25,10 +25,19 @@ The repository is organized into frontend, backend, and infrastructure component
 Architecture Overview
 ---------------------
 
-- Frontend: Flutter web app that communicates with the backend API.
-- Backend: Dart Frog REST API serving budget and authentication endpoints.
-- Database: PostgreSQL stores user accounts, budgets, transactions, and settings.
-- Infra: Docker Compose defines the full stack for development and local testing.
+Frontend Architecture (Flutter)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The frontend is built with **Flutter** (targeting Web). It follows a layered approach focusing on the separation of presentation, business logic, and data access.
+
+* **State Management**: Utilizes the **BLoC (Business Logic Component)** pattern via the ``flutter_bloc`` package to decouple UI from business rules.
+* **Routing**: Managed by **go_router** for declarative navigation and route guards (e.g., redirecting unauthenticated users to the login screen).
+* **Networking**: HTTP requests to the backend are managed by the **Dio** networking package, handling token interceptors and serialization.
+* **Storage**: secure storage of session data and JWT tokens using **flutter_secure_storage**.
+* **Visuals & Maps**: Uses **fl_chart** for rendering financial data and **google_maps_flutter** for transaction location plotting.
+
+Backend Architecture (Dart Frog)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* [Backend details placeholder]
 
 Infrastructure Notes
 --------------------
