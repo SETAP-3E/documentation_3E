@@ -9,18 +9,38 @@ The repository is organized into frontend, backend, and infrastructure component
 .. code-block:: text
 
    Budgetting-App/
-   ├── frontend/           # Flutter web application
-   │   ├── lib/
-   │   │   ├── core/       # Theme, router, utilities
-   │   │   └── features/   # Feature modules (dashboard, auth, etc.)
-   │   └── Dockerfile
+   ├── .env                # Local secrets (e.g., API keys, DB credentials)
+   ├── docker-compose.yml  # Main service orchestration for production
+   ├── docker-compose.override.yml # Local development overrides (e.g., port mapping)
+   ├── nginx/
+   │   └── nginx.conf      # Reverse proxy to route traffic to frontend/backend
+   │
+   ├── database/
+   │   ├── schema.sql      # The complete, current database schema
+   │   ├── migrations/     # Incremental SQL scripts for schema changes
+   │   └── seeds/
+   │       └── dev_seed.sql # SQL script to populate DB with dev data
+   │
    ├── backend/            # Dart Frog REST API
-   │   ├── routes/         # API route handlers
-   │   ├── lib/            # Models, services, repositories
-   │   └── Dockerfile
-   ├── docker-compose.yml
-   ├── docker-compose.override.yml  # Local dev overrides
-   └── .env.example
+   │   ├── Dockerfile      # Defines the backend's container environment
+   │   ├── pubspec.yaml    # Dart package dependencies (e.g., postgres, dart_jsonwebtoken)
+   │   ├── routes/         # Each file/directory maps to an API endpoint
+   │   │   ├── auth/
+   │   │   ├── transactions/
+   │   │   └── _middleware.dart # Middleware applied to all routes
+   │   └── lib/            # Core application logic
+   │       ├── models/       # Data structures (e.g., TransactionModel)
+   │       ├── repositories/ # Data access layer (interacts with the database)
+   │       └── services/     # Business logic services
+   │
+   └── frontend/           # Flutter web application
+       ├── Dockerfile      # Defines the frontend's container environment
+       ├── pubspec.yaml    # Flutter package dependencies (e.g., flutter_bloc, go_router)
+       ├── lib/            # Main application source code
+       │   ├── main.dart     # App entry point
+       │   ├── core/         # App-wide utilities (routing, theme, DI)
+       │   └── features/     # UI and business logic for each feature (e.g., auth, dashboard)
+       └── web/            # Web-specific files, including index.html
 
 Architecture Overview
 ---------------------
