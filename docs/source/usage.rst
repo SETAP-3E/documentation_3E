@@ -1,34 +1,21 @@
-Usage
-=====
+Usage Guide
+===========
 
-.. _installation:
+This guide provides a user-centric walkthrough for the main features of the Budgeting App frontend.
 
-Installation
-------------
+User Registration and Login
+---------------------------
 
-To use Lumache, first install it using pip:
+New users can create an account, and existing users can log in to access their financial data.
 
-.. code-block:: console
+1.  **Registration**:
+    *   Navigate to the "Sign Up" page.
+    *   Enter a unique username, a valid email, and a secure password.
+    *   Upon successful registration, you will be automatically logged in and redirected to the main dashboard.
 
-   (.venv) $ pip install lumache
-
-Creating recipes
-----------------
-
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
-
-.. autofunction:: lumache.get_random_ingredients
-
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
-For example:
-
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
+2.  **Login**:
+    *   Navigate to the "Login" page.
+    *   Enter your email and password.
+    *   The application will fetch a JWT token from the backend and store it securely in the browser's local storage for session management.
+    *   You will be redirected to the dashboard.
 
