@@ -196,3 +196,40 @@ A summary table to track account balances over time.
    * - ``year``
      - ``INTEGER``
      - The year.
+
+Relationships
+-------------
+
+The tables are linked via foreign keys to maintain data integrity.
+
+*   **A ``user`` can have multiple ``accounts``, ``categories`` (custom), ``transactions``, and ``budgets``.**
+    *   ``accounts.user_id`` -> ``users.id``
+    *   ``categories.user_id`` -> ``users.id``
+    *   ``transactions.user_id`` -> ``users.id``
+    *   ``budgets.user_id`` -> ``users.id``
+
+*   **A ``transaction`` belongs to one ``user``, one ``account``, and one ``category``.**
+    *   ``transactions.account_id`` -> ``accounts.id``
+    *   ``transactions.category_id`` -> ``categories.id``
+
+*   **A ``budget`` is set for a specific ``category`` by a ``user``.**
+    *   ``budgets.category_id`` -> ``categories.id``
+
+*   **A ``monthly_balance`` tracks the balance of a single ``account`` over time.**
+    *   ``monthly_balances.account_id`` -> ``accounts.id``
+
+.. mermaid::
+
+   graph TD
+       A[Users] --> B(Accounts);
+       A --> C(Categories);
+       A --> D(Transactions);
+       A --> E(Budgets);
+       B --> D;
+       C --> D;
+       C --> E;
+       B --> F(Monthly Balances);
+
+       subgraph Geo-Location
+           D -- Optional --> G{Lat/Long};
+       end
