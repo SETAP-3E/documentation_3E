@@ -42,3 +42,4 @@ Contents
    configuration
    usage
    api
+   testing
