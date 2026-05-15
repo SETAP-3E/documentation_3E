@@ -26,9 +26,6 @@ Tech Stack
 | Infra    | Docker + Docker Compose                 |
 +----------+-----------------------------------------+
 
-.. note::
-
-   This project is under active development.
 
 Contents
 --------
